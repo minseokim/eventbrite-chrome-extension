@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en-us" ng-app="myApp">
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 <script src="../js/angular.min.js"></script>
 <script src="../js/jquery-1.12.0.min.js"></script>
 <script src="../js/app.js"></script>
@@ -16,8 +17,9 @@
 </style>
 
 <div id="mainPopup">
-<h1>Hello extensionizr!</h1>
-<p>To shut this popup down, edit the manifest file and remove the "default popup" key. To edit it, just edit ext/browser_action/browser_action.html. The CSS is there, too.</p>
+<h1>See Cool Events around You~</h1>
+<input id="from" type="text" ng-model="user.from" placeholder="Type Address" class="ng-pristine ng-valid" autocomplete="off">
+<p></p>
 </div>
 <div ng-controller="mainController">
   {{name}}

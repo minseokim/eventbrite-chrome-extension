@@ -2,8 +2,12 @@ var myApp = angular.module('myApp', []);
 
 myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
-  var requestData = {
 
+  var requestData = {
+    token : '3URCTQMSNEBN7MEB3Z33',
+    'location.latitude' : '37.780125',
+    'location.longitude' : '-122.404190',
+    'location.within' : '10mi'
   };
 
   $http({
@@ -12,10 +16,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     headers: {
       'Content-Type': 'application/json'
     },
-    params : {
-      token : 'M4BHIAPHJ2G4TS5NQFZH'
-    },
-    data : requestData
+    params : requestData
   }).then(function onSuccess(response){
     console.log(response);
   }, function onError(response) {

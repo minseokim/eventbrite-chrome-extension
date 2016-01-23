@@ -24,5 +24,6 @@
   },
   "permissions": [
     "tabs"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://maps.googleapis.com https://maps.gstatic.com; object-src 'self'"
 }

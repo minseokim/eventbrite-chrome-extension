@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-us" ng-app="myApp">
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script src="../js/angular.min.js"></script>
 <script src="../js/jquery-1.12.0.min.js"></script>
 <script src="../js/app.js"></script>
@@ -16,12 +16,12 @@
 	}
 </style>
 
-<div id="mainPopup">
+<div id="mainPopup" ng-controller="mainController">
 <h1>See Cool Events around You~</h1>
-<input id="from" type="text" ng-model="user.from" placeholder="Type Address" class="ng-pristine ng-valid" autocomplete="off">
-<p></p>
-</div>
-<div ng-controller="mainController">
-  {{name}}
+<input id="from" type="text" ng-model="newAddress" placeholder="Type Address" class="ng-pristine ng-valid" autocomplete="off">
+<button ng-click="funcCall()"> something</button>
+{{newAddress}}
+{{newLat}}
+{{newLong}}
 </div>
 </html>

@@ -1,7 +1,6 @@
-var myApp = angular.module('myApp', ['angularMoment']);
+var myApp = angular.module('myApp', []);
 
 myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
-
 
   $scope.distance = {
     selectedOption : {id: '10', value: '10mi'},
@@ -26,14 +25,61 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
   });
 
+
+
+  //Get current date of user
+  var handleDates = (function(){
+    //start_date.range_start  Only return events with start dates after the given UTC date.
+    //start_date.range_end  Only return events with start dates before the given UTC date.
+
+    var isoString = moment().toISOString();
+
+    var dateRange = {
+      start : null,
+      end : null
+    };
+
+    //Find the nearest Friday from today
+      //set that as the start limit filter
+        //use a loop that goes from today till 7 days from now
+
+     var days = 1;
+     var today = moment();
+
+     while (days <= 7) {
+
+      if (today.format('dddd') === 'Friday') {
+          console.log('found friday');
+          dateRange.start = today;
+          break;
+       }
+
+      today.add(1, 'days').format('dddd');
+      days++;
+     }
+
+     dateRange.end = dateRange.start.clone().add(2, 'days');
+
+     dateRange.start = dateRange.start.toISOString();
+     dateRange.end = dateRange.end.toISOString();
+     console.log(dateRange);
+  })();
+
+
   //Ajax request to fetch events from Eventbrite API
-  var getEvents = function(location, range){
+  var getEvents = function(location, distance, dates){
+
     var requestData = {
       token : '3URCTQMSNEBN7MEB3Z33',
       'location.latitude' : location.lat,
       'location.longitude' : location.lon,
-      'location.within' : range
+      'location.within' : distance
     };
+
+    if (dates) {
+      requestData[start_date.range_start] = dates.start;
+      requestData[start_date.range_end] = dates.end;
+    }
 
     $http({
       method: 'GET',
@@ -51,7 +97,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
   //Angular Progress Bar Here
   $scope.fetchData = function(){
-    getEvents($scope.location, $scope.distance.selectedOption.value);
+    getEvents($scope.location, $scope.distance.selectedOption.value, dateRange);
   };
-
 }]);

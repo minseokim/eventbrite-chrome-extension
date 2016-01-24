@@ -3,7 +3,6 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script src="../js/angular.min.js"></script>
 <script src="../js/moment.min.js"></script>
-<script src="../js/angular-moment.min.js"></script>
 <script src="../js/app.js"></script>
 <style type="text/css">
 	#mainPopup {
@@ -20,7 +19,7 @@
 <div id="mainPopup" ng-controller="mainController">
 <h1>See Cool Events around You</h1>
 
-<input id="location" type="text" ng-model="newAddress" placeholder="Type Address" autocomplete="off">
+<input id="location" type="text" ng-model="newAddress" placeholder="Address or zipcode" autocomplete="off">
 
 <form ng-submit="fetchData()">
   <label>Search within :</label>
@@ -28,6 +27,9 @@
   <input type="submit" id="submit" value="Go">
 </form>
 
+<div>
+
+</div>
 
 </div>
 </html>

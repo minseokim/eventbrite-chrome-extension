@@ -2,7 +2,7 @@
   "name": "Eventbrite Chrome Extension",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Discover Great Events or Create Your Own: Now made easy through the Chrome Extension",
+  "description": "Discover Great Events Around You With Eventbrite",
   "homepage_url": "https://github.com/minseokim/eventbrite-chrome-extension",
   "icons": {
     "16": "icons/icon16.png",

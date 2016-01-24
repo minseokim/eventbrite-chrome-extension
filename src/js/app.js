@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', []);
 
 myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
-  var input = document.getElementById('from');
+  var input = document.getElementById('location');
 
   //Set up Google Maps Autocomplete API
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -13,8 +13,10 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       lon: place.geometry.location.lng(),
       address: place.formatted_address
     };
-    // $scope.$apply();
-    getEvents(location, '10mi');
+
+    //Angular Progress Bar Here
+    var distanceWithin = $scope.range + 'mi';
+    getEvents(location, distanceWithin);
   });
 
     //Ajax request to fetch events from Eventbrite API
@@ -40,5 +42,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       console.log(response);
     });
     };
+
 
 }]);

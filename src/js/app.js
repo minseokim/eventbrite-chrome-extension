@@ -11,6 +11,8 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       ]
     };
 
+  $scope.backupImage = 'http://i.imgur.com/i7aMrr9.jpg';
+
   //Set up Google Maps Autocomplete API
   var input = document.getElementById('location');
 

@@ -35,7 +35,7 @@
             endDate : event.end.local,
             url : event.url -->
   <a href="{{event.url}}"><span>{{event.title}} startDate : {{event.startDate}}  endDate: {{event.endDate}} </span>
-  <img src="{{event.logo.url}}">
+  <img src="{{event.logo.url || backupImage}}">
   </a>
 
 </div>

@@ -46,28 +46,20 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
      var today = moment();
 
      while (days <= 7) {
-
       if (today.format('dddd') === 'Friday') {
           console.log('found friday');
           dateRange.start = today;
           break;
        }
-
       today.add(1, 'days').format('dddd');
       days++;
      }
 
      dateRange.end = dateRange.start.clone().add(2, 'days');
 
-     dateRange.start = dateRange.start.toISOString();
-     dateRange.end = dateRange.end.toISOString();
+     dateRange.start = dateRange.start.toISOString().slice(0, 19) + 'Z';
+     dateRange.end = dateRange.end.toISOString().slice(0, 19) + 'Z';
 
-     var isoStringLength = dateRange.start.length;
-
-     dateRange.start = dateRange.start.slice(0, isoStringLength-5) + 'Z';
-     dateRange.end = dateRange.end.slice(0, isoStringLength-5) + 'Z';
-
-     console.log(dateRange);
      $scope.dateRange = dateRange;
 
     // "2016-01-31T04:47:00.671Z"
@@ -82,15 +74,14 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       token : '3URCTQMSNEBN7MEB3Z33',
       'location.latitude' : location.lat,
       'location.longitude' : location.lon,
-      'location.within' : distance
+      'location.within' : distance,
+      'sort_by' :'date'
     };
 
     if (dates) {
       requestData['start_date.range_start'] = dates.start;
       requestData['start_date.range_end'] = dates.end;
     }
-
-    console.log(requestData);
 
     $http({
       method: 'GET',
@@ -100,7 +91,33 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       },
       params : requestData
     }).then(function onSuccess(response){
-      console.log(response);
+      // console.log(response);
+      /* Data we need :
+          - Title
+          - URL
+          - Start Date
+          - logo
+          - category(possibly)
+      */
+
+      var events = response.data.events;
+
+      //events.categoryid,  events.logo.url,  events.name.text,
+      //events.start.local, events.end.local, events.url
+
+      var eventData = events.map(function(event) {
+        return {
+          categoryid: event.category_id,
+          logo: event.logo,
+          title : event.name.text,
+          startDate : event.start.local,
+          endDate : event.end.local,
+          url : event.url
+        };
+      });
+
+      $scope.eventData = eventData;
+
     }, function onError(response) {
       console.log(response);
     });
@@ -110,4 +127,5 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
   $scope.fetchData = function(){
     getEvents($scope.location, $scope.distance.selectedOption.value, $scope.dateRange);
   };
+
 }]);

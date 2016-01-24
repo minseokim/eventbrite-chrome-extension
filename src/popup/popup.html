@@ -27,7 +27,19 @@
   <input type="submit" id="submit" value="Go">
 </form>
 
+<div ng-repeat="event in eventData">
+          <!--  categoryid: event.category_id,
+            logo: event.logo,
+            title : event.name.text,
+            startDate : event.start.local,
+            endDate : event.end.local,
+            url : event.url -->
+  <a href="{{event.url}}"><span>{{event.title}} startDate : {{event.startDate}}  endDate: {{event.endDate}} </span>
+  <img src="{{event.logo.url}}">
+  </a>
 
+
+</div>
 
 </div>
 </html>

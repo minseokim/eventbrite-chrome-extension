@@ -26,7 +26,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
   });
 
 
-
   //Get current date of user
   var handleDates = (function(){
     //start_date.range_start  Only return events with start dates after the given UTC date.
@@ -62,7 +61,17 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
      dateRange.start = dateRange.start.toISOString();
      dateRange.end = dateRange.end.toISOString();
+
+     var isoStringLength = dateRange.start.length;
+
+     dateRange.start = dateRange.start.slice(0, isoStringLength-5) + 'Z';
+     dateRange.end = dateRange.end.slice(0, isoStringLength-5) + 'Z';
+
      console.log(dateRange);
+     $scope.dateRange = dateRange;
+
+    // "2016-01-31T04:47:00.671Z"
+    // "2010-01-31T13:00:00Z"
   })();
 
 
@@ -77,9 +86,11 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
 
     if (dates) {
-      requestData[start_date.range_start] = dates.start;
-      requestData[start_date.range_end] = dates.end;
+      requestData['start_date.range_start'] = dates.start;
+      requestData['start_date.range_end'] = dates.end;
     }
+
+    console.log(requestData);
 
     $http({
       method: 'GET',
@@ -97,6 +108,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
   //Angular Progress Bar Here
   $scope.fetchData = function(){
-    getEvents($scope.location, $scope.distance.selectedOption.value, dateRange);
+    getEvents($scope.location, $scope.distance.selectedOption.value, $scope.dateRange);
   };
 }]);

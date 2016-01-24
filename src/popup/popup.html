@@ -17,24 +17,16 @@
 </style>
 
 <div id="mainPopup" ng-controller="mainController">
-<h1>See Cool Events around You~</h1>
+<h1>See Cool Events around You</h1>
 
-<input id="location" type="text" ng-model="newAddress" placeholder="Type Address" class="ng-pristine ng-valid" autocomplete="off">
+<input id="location" type="text" ng-model="newAddress" placeholder="Type Address" autocomplete="off">
 
-<form name="myForm" ng-init="range=10">
-  <label>
-    <input type="radio" ng-model="range" value="10">
-    10
-  </label><br/>
-  <label>
-    <input type="radio" ng-model="range" value="25">
-    25
-  </label><br/>
-  <label>
-    <input type="radio" ng-model="range" value="50">
-    50
-  </label><br/>
- </form>
- {{range}}
+<form>
+  <label>Search within :</label>
+  <select ng-options="option.value for option in distance.options track by option.id" ng-model="distance.selectedOption"></select>
+</form>
+
+{{distance.selectedOption}}
+
 </div>
 </html>

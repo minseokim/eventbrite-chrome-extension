@@ -2,9 +2,20 @@ var myApp = angular.module('myApp', []);
 
 myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
-  var input = document.getElementById('location');
+
+
+  $scope.distance = {
+    selectedOption : {id: '10', value: '10mi'},
+    options : [
+      {id: '10', value: '10mi'},
+      {id: '25', value: '25mi'},
+      {id: '50', value: '50mi'}
+      ]
+    };
+
 
   //Set up Google Maps Autocomplete API
+  var input = document.getElementById('location');
   var autocomplete = new google.maps.places.Autocomplete(input);
   google.maps.event.addListener(autocomplete, 'place_changed', function(){
     var place = autocomplete.getPlace();
@@ -15,8 +26,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
 
     //Angular Progress Bar Here
-    var distanceWithin = $scope.range + 'mi';
-    getEvents(location, distanceWithin);
+    getEvents(location, $scope.distance.selectedOption);
   });
 
     //Ajax request to fetch events from Eventbrite API

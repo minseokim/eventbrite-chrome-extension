@@ -110,13 +110,16 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
           categoryid: event.category_id,
           logo: event.logo,
           title : event.name.text,
-          startDate : event.start.local,
-          endDate : event.end.local,
+          startDate : moment(event.start.local).format("MMM Do YY"),
+          endDate : moment(event.end.local).format("MMM Do YY"),
           url : event.url
         };
       });
 
       $scope.eventData = eventData;
+
+
+      console.log(eventData);
 
     }, function onError(response) {
       console.log(response);

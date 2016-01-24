@@ -1,44 +1,62 @@
 <!doctype html>
 <html lang="en-us" ng-app="myApp">
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-<script src="../js/angular.min.js"></script>
-<script src="../js/moment.min.js"></script>
-<script src="../js/app.js"></script>
-<style type="text/css">
-	#mainPopup {
-		padding: 10px;
-		height: 200px;
-		width: 400px;
-		font-family: Helvetica, Ubuntu, Arial, sans-serif;
-	}
-	h1 {
-		font-size: 2em;
-	}
-</style>
+  <head>
+    <meta charset="utf-8">
+    <!-- Scripts -->
+    <script src="../js/jquery-1.12.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../../css/custom.css" rel="stylesheet" media="screen">
+  </head>
+
+  <body>
 
 <div id="mainPopup" ng-controller="mainController">
-<h1>See Cool Events around You</h1>
+  <h2>Discover Cool Events around You</h2>
 
-<input id="location" type="text" ng-model="newAddress" placeholder="Address or zipcode" autocomplete="off">
-
-<form ng-submit="fetchData()">
-  <label>Search within :</label>
-  <select ng-options="option.value for option in distance.options track by option.id" ng-model="distance.selectedOption"></select>
-  <input type="submit" id="submit" value="Go">
-</form>
-
-<div ng-repeat="event in eventData">
-          <!--  categoryid: event.category_id,
-            logo: event.logo,
-            title : event.name.text,
-            startDate : event.start.local,
-            endDate : event.end.local,
-            url : event.url -->
-  <a href="{{event.url}}"><span>{{event.title}} startDate : {{event.startDate}}  endDate: {{event.endDate}} </span>
-  <img src="{{event.logo.url || backupImage}}">
-  </a>
-
+<div>
+  <form ng-submit="fetchData()">
+    <input id="location" type="text" ng-model="newAddress" placeholder="Address or zipcode" autocomplete="off">
+    <label>Search within :</label>
+    <div class="col-xs-2">
+      <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
+      </select>
+    </div>
+    <input type="submit" id="submit" value="Go">
+  </form>
 </div>
 
+<div ng-repeat="event in eventData" class="events">
+            <!--  categoryid: event.category_id,
+              logo: event.logo,
+              title : event.name.text,
+              startDate : event.start.local,
+              endDate : event.end.local,
+              url : event.url -->
+    <ul>
+      <li>
+        <a href="{{event.url}}" target="_blank">
+        <img src="{{event.logo.url || backUpImage}}">
+        <h3>{{event.title}}</h3>
+        <h4>{{event.startDate}}</h4>
+        <h4>{{event.endDate}}</h4>
+        </a>
+      </li>
+    </ul>
+<!--     <a href="{{event.url}}"><span>{{event.title}} startDate : {{event.startDate}}  endDate: {{event.endDate}} </span>
+    <img src="{{event.logo.url || backupImage}}">
+    </a> -->
+    </div>
 </div>
+
+  </body>
+
+
+
 </html>

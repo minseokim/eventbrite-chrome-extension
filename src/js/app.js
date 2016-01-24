@@ -3,11 +3,12 @@ var myApp = angular.module('myApp', []);
 myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
   $scope.distance = {
-    selectedOption : {id: '10', value: '10mi'},
+    selectedOption : {id: '5 miles', value: '5mi'},
     options : [
-      {id: '10', value: '10mi'},
-      {id: '25', value: '25mi'},
-      {id: '50', value: '50mi'}
+      {id: '5 miles', value: '5mi'},
+      {id: '10 miles', value: '10mi'},
+      {id: '25 miles', value: '25mi'},
+      {id: '50 miles', value: '50mi'}
       ]
     };
 
@@ -48,8 +49,8 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
      var today = moment();
 
      while (days <= 7) {
+
       if (today.format('dddd') === 'Friday') {
-          console.log('found friday');
           dateRange.start = today;
           break;
        }
@@ -63,7 +64,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
      dateRange.end = dateRange.end.toISOString().slice(0, 19) + 'Z';
 
      $scope.dateRange = dateRange;
-
     // "2016-01-31T04:47:00.671Z"
     // "2010-01-31T13:00:00Z"
   })();
@@ -101,13 +101,10 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
           - logo
           - category(possibly)
       */
-
-      var events = response.data.events;
-
       //events.categoryid,  events.logo.url,  events.name.text,
       //events.start.local, events.end.local, events.url
 
-      var eventData = events.map(function(event) {
+      var eventData = response.data.events.map(function(event) {
         return {
           categoryid: event.category_id,
           logo: event.logo,
@@ -119,8 +116,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       });
 
       $scope.eventData = eventData;
-
-
       console.log(eventData);
 
     }, function onError(response) {

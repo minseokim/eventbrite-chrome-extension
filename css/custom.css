@@ -24,7 +24,7 @@ body {     /* Change width and height to own preferences */
 
 .heading {
   position: relative;
-  top: 90px;
+  top: 72px;
   margin-left: 180px;
   left: 45px;
 }
@@ -35,6 +35,10 @@ body {     /* Change width and height to own preferences */
 
 .searchContainer {
   position: relative;
-  top : 105px;
+  top : 55px;
   margin-left: 180px;
+}
+
+.searchContainer h3 {
+  font-size : 17px;
 }

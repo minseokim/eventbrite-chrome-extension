@@ -4,35 +4,29 @@
     <meta charset="utf-8">
     <!-- Scripts -->
     <script src="../js/jquery-1.12.0.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script src="../js/angular.min.js"></script>
     <script src="../js/moment.min.js"></script>
     <script src="../js/app.js"></script>
-
     <!-- CSS -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="../../css/custom.css" rel="stylesheet" media="screen">
   </head>
 
-  <body>
+  <body ng-controller="mainController">
 
-<div id="mainPopup" ng-controller="mainController">
-  <h2>Discover Cool Events around You</h2>
+<img src="../../icons/eventman.png" class="eventman">
+          <h2>Discover Cool Events around You</h2>
+        <form ng-submit="fetchData()">
+          <input id="location" type="text" ng-model="newAddress" placeholder="Address or zipcode" autocomplete="off">
+          <label>Search within :</label>
+          <div class="col-xs-2">
+            <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
+            </select>
+          </div>
+          <input type="submit" id="submit" value="Go">
+        </form>
 
-<div>
-  <form ng-submit="fetchData()">
-    <input id="location" type="text" ng-model="newAddress" placeholder="Address or zipcode" autocomplete="off">
-    <label>Search within :</label>
-    <div class="col-xs-2">
-      <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
-      </select>
-    </div>
-    <input type="submit" id="submit" value="Go">
-  </form>
-</div>
-
-<div ng-repeat="event in eventData" class="events">
+  <div ng-repeat="event in eventData" class="events">
             <!--  categoryid: event.category_id,
               logo: event.logo,
               title : event.name.text,
@@ -44,14 +38,11 @@
         <a href="{{event.url}}" target="_blank">
         <img src="{{event.logo.url || backUpImage}}">
         <h3>{{event.title}}</h3>
-        <h4>{{event.startDate}}</h4>
-        <h4>{{event.endDate}}</h4>
+        <h3>{{event.startDate}}</h3>
+        <h3>{{event.endDate}}</h3>
         </a>
       </li>
     </ul>
-<!--     <a href="{{event.url}}"><span>{{event.title}} startDate : {{event.startDate}}  endDate: {{event.endDate}} </span>
-    <img src="{{event.logo.url || backupImage}}">
-    </a> -->
     </div>
 </div>
 

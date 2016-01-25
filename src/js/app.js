@@ -13,6 +13,10 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
 
   $scope.backupImage = 'http://i.imgur.com/i7aMrr9.jpg';
+  $scope.checkboxData = {
+    weekendOnly : false,
+    popularOnly : false
+  };
 
   //Set up Google Maps Autocomplete API
   var input = document.getElementById('location');
@@ -46,10 +50,9 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
         //use a loop that goes from today till 7 days from now
 
      var days = 1;
-     var today = moment();
+     var today = moment().utc();
 
      while (days <= 7) {
-
       if (today.format('dddd') === 'Friday') {
           dateRange.start = today;
           break;
@@ -57,7 +60,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       today.add(1, 'days').format('dddd');
       days++;
      }
-
      dateRange.end = dateRange.start.clone().add(2, 'days');
 
      dateRange.start = dateRange.start.toISOString().slice(0, 19) + 'Z';
@@ -70,7 +72,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
 
   //Ajax request to fetch events from Eventbrite API
-  var getEvents = function(location, distance, dates){
+  var getEvents = function(location, distance, weekendOnly, popularOnly){
 
     var requestData = {
       token : '3URCTQMSNEBN7MEB3Z33',
@@ -80,9 +82,13 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       'sort_by' :'date'
     };
 
-    if (dates) {
-      requestData['start_date.range_start'] = dates.start;
-      requestData['start_date.range_end'] = dates.end;
+    if (weekendOnly) {
+      requestData['start_date.range_start'] = $scope.dateRange.start;
+      requestData['start_date.range_end'] = $scope.dateRange.end;
+    }
+
+    if (popularOnly) {
+      requestData.popular = true;
     }
 
     $http({
@@ -104,6 +110,8 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       //events.categoryid,  events.logo.url,  events.name.text,
       //events.start.local, events.end.local, events.url
 
+      console.log(response);
+
       var eventData = response.data.events.map(function(event) {
         return {
           categoryid: event.category_id,
@@ -116,7 +124,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       });
 
       $scope.eventData = eventData;
-      console.log(eventData);
 
     }, function onError(response) {
       console.log(response);
@@ -125,7 +132,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
 
   //Angular Progress Bar Here
   $scope.fetchData = function(){
-    getEvents($scope.location, $scope.distance.selectedOption.value, $scope.dateRange);
+    getEvents($scope.location, $scope.distance.selectedOption.value, $scope.checkboxData.weekendOnly, $scope.checkboxData.popularOnly);
   };
 
 }]);

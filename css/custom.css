@@ -1,7 +1,8 @@
-body {     /* Change width and height to own preferences */
+body {
   width: 500px;
   height: 300px;
   overflow-x: hidden;
+  font-family: 'Fira Sans', sans-serif;
 }
 
 .container {
@@ -40,8 +41,8 @@ body {     /* Change width and height to own preferences */
 }
 
 .searchContainer input {
-  font-family: Helvetica;
-  font-size: 15px;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
   padding: 1px;
   border: none;
   border-bottom: solid 2px #c9c9c9;
@@ -57,6 +58,7 @@ body {     /* Change width and height to own preferences */
   font-size : 12px;
 }
 .searchContainer select {
+  font-family: 'Fira Sans', sans-serif;
   background: transparent;
   font-size : 12px;
 }
@@ -130,9 +132,15 @@ li:hover {
 }
 
 .event-title {
-  margin-top : 15px;
+  margin-top : 13px;
+  font-weight : 600;
+  font-size : 13px;
+  color : black;
 }
 
 .event-date {
   margin-top : 5px;
+  font-weight : 500;
+  color : #613761;
+  margin-left : 165px;
 }

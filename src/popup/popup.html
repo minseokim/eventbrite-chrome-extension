@@ -46,8 +46,10 @@
     </form>
   </div>
 
+  <div class="spaceContainer">
+  </div>
 
-  <div ng-repeat="event in eventData" class="events">
+  <div ng-repeat="event in eventData" class="event-list">
     <!--  categoryid: event.category_id,
               logo: event.logo,
               title : event.name.text,
@@ -55,14 +57,13 @@
               endDate : event.end.local,
               url : event.url -->
     <ul>
-      <li> <a href="{{event.url}}" target="_blank">
+      <li>
+      <a href="{{event.url}}" target="_blank" style="text-decoration: none;">
       <img src="{{event.logo.url || backUpImage}}">
-        <div class="`">
-            <h3>{{event.title}}</h3>
-            <h4>{{event.startDate}}</h4>
-            <h4>{{event.endDate}}</h4>
-        </div>
-         </a> </li>
+        <div class="event-title"> {{event.title}}</div>
+          <div class="event-date"> {{event.startDate}}</div>
+         </a>
+      </li>
     </ul>
   </div>
 

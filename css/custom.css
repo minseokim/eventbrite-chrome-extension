@@ -35,10 +35,43 @@ body {     /* Change width and height to own preferences */
 
 .searchContainer {
   position: relative;
-  top : 55px;
+  top : 80px;
   margin-left: 180px;
 }
 
-.searchContainer h3 {
-  font-size : 17px;
+.searchContainer input {
+  font-family: Helvetica;
+  font-size: 15px;
+  padding: 1px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+
+.searchContainer input:focus {
+    outline-color: transparent;
+    outline-style: none;
+}
+
+.searchContainer .within {
+  font-size : 12px;
+}
+.searchContainer select {
+  background: transparent;
+  font-size : 12px;
+}
+
+.submitButton {
+  margin-left: 177px;
+  margin-top: 5px;
+}
+
+.searchContainer .btn-style{
+  border : solid 0px #ffffff;
+  border-radius : 3px;
+  moz-border-radius : 3px;
+  font-size : 15px;
+  color : #ffffff;
+  padding : 2px 8px;
+  background-color : #7299C1;
 }

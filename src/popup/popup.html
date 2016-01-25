@@ -21,31 +21,27 @@
   </div>
 
   <div class="heading">
-    <h2>Eventbrite</h2>
+    <img src="../../icons/eventbrite-text.png">
   </div>
 
   <div class="searchContainer">
     <form ng-submit="fetchData()" >
 
-      <input id="location" type="text" size="40"ng-model="newAddress" placeholder="Enter your address here!" autocomplete="off">
+      <input id="location" type="text" size="30" ng-model="newAddress" placeholder="Enter your address here..." autocomplete="off">
 
-      <div class="form-group">
-        <label>Within :</label>
-        <div class="col-xs-2 select-list">
+      <br>
+      <br>
+        <label class="within">Within : </label>
           <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
           </select>
-        </div>
-      </div>
+        <label class="weekend-only">
+          <input type="checkbox" name="weekend-only" value="weekend">Weekend </label>
+        <label class="popular-only">
+          <input type="checkbox" name="popular" value="popular">Popular </label>
 
-      <div class="buttonGroup">
-        <label class="radio-inline">
-          <input type="radio" name="next-weekend" id="inlineRadio1" value="option1">
-          Next Weekend </label>
-        <label class="radio-inline">
-          <input type="radio" name="popular" id="inlineRadio2" value="option2">
-          Popular </label>
+      <div class="submitButton">
+<input type="submit" name="btn" class="btn-style" value="search"/>
       </div>
-      <input type="submit" id="submit" value="Go">
 
     </form>
   </div>

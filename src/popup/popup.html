@@ -28,11 +28,12 @@
   </div>
 
   <div class="searchContainer">
-    <form ng-submit="fetchData()" >
+    <form name="userForm" ng-submit="fetchData(userForm.address.$valid)">
 
-      <input id="location" type="text" size="30" ng-model="newAddress" placeholder="Enter your address here..." autocomplete="off">
-      <br>
-      <br>
+      <input name="address" id="location" type="text" size="30" ng-model="newAddress" placeholder="Enter your address here..." autocomplete="off" required>
+
+      <div class="address-invalid" ng-show="userForm.address.$touched && userForm.address.$invalid">You need to enter your address!</div>
+
         <label class="within">Within : </label>
           <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
           </select>
@@ -40,9 +41,9 @@
           <input type="checkbox" name="weekend-only" ng-model="checkboxData.weekendOnly">Weekend </label>
         <label class="popular-only">
           <input type="checkbox" name="popular" ng-model="checkboxData.popularOnly">Popular </label>
-  {{checkboxData}}
+
       <div class="submitButton">
-        <input type="submit" name="btn" class="btn-style" value="search"/>
+        <input type="submit" name="btn" class="btn-style" value="search"ng-disabled="userForm.$invalid"/>
       </div>
 
     </form>

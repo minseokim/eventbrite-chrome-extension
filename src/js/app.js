@@ -32,7 +32,6 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
   });
 
-
   //Get current date of user
   var handleDates = (function(){
     //start_date.range_start  Only return events with start dates after the given UTC date.
@@ -109,9 +108,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       */
       //events.categoryid,  events.logo.url,  events.name.text,
       //events.start.local, events.end.local, events.url
-
       console.log(response);
-
       var eventData = response.data.events.map(function(event) {
         return {
           categoryid: event.category_id,
@@ -131,8 +128,11 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
   };
 
   //Angular Progress Bar Here
-  $scope.fetchData = function(){
-    getEvents($scope.location, $scope.distance.selectedOption.value, $scope.checkboxData.weekendOnly, $scope.checkboxData.popularOnly);
+  $scope.fetchData = function(isValid) {
+
+    if (isValid) {
+      getEvents($scope.location, $scope.distance.selectedOption.value, $scope.checkboxData.weekendOnly, $scope.checkboxData.popularOnly);
+    }
   };
 
 }]);

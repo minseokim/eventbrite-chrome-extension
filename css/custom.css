@@ -1,6 +1,6 @@
 body {
   width: 500px;
-  height: 300px;
+  height: 308px;
   overflow-x: hidden;
   font-family: 'Fira Sans', sans-serif;
 }
@@ -52,6 +52,16 @@ body {
 .searchContainer input:focus {
     outline-color: transparent;
     outline-style: none;
+}
+
+.searchContainer .address-invalid {
+  font-size: 10px;
+  color:red;
+}
+
+.address-invalid.ng-hide {
+  display: block !important;
+  color: white;
 }
 
 .searchContainer .within {

@@ -30,9 +30,9 @@
   <div class="searchContainer">
     <form name="userForm" ng-submit="fetchData(userForm.address.$valid)">
 
-      <input name="address" id="location" type="text" size="30" ng-model="newAddress" placeholder="Enter your address here..." autocomplete="off" required>
+      <input name="address" id="location" type="text" size="30" ng-model="newAddress" placeholder="Enter location here..." autocomplete="off" required>
 
-      <div class="address-invalid" ng-show="userForm.address.$touched && userForm.address.$invalid">You need to enter your address!</div>
+      <div class="address-invalid" ng-show="userForm.address.$touched && userForm.address.$invalid">We need location to find cool events for you :-)</div>
 
         <label class="within">Within : </label>
           <select ng-options="option.id for option in distance.options track by option.id" ng-model="distance.selectedOption" class="form-control">
@@ -43,7 +43,7 @@
           <input type="checkbox" name="popular" ng-model="checkboxData.popularOnly">Popular </label>
 
       <div class="submitButton">
-        <input type="submit" name="btn" class="btn-style" value="search"ng-disabled="userForm.$invalid"/>
+        <input type="submit" name="btn" class="btn-style" value="search"/>
       </div>
 
     </form>
@@ -56,7 +56,7 @@
     <ul>
       <li>
       <a href="{{event.url}}" target="_blank" style="text-decoration: none;">
-      <img src="{{event.logo.url || backUpImage}}">
+      <img src="{{event.logo.url || backupImage}}">
         <div class="event-title"> {{event.title}}</div>
           <div class="event-date"> {{event.startDate}}</div>
          </a>

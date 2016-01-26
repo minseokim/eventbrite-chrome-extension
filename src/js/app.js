@@ -12,7 +12,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       ]
     };
 
-  $scope.backupImage = 'http://i.imgur.com/i7aMrr9.jpg';
+  $scope.backupImage = 'http://i.imgur.com/QCaDyJ9.png';
   $scope.checkboxData = {
     weekendOnly : false,
     popularOnly : false

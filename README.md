@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/OTQ1D5w.png" align="center"/ style="width:40%;">
+<img src="http://i.imgur.com/yfZuAXH.png?1"/>
 
 # Eventbrite Chrome Extension
 
@@ -7,7 +7,7 @@ Simple chrome extension that allows you to search for events nearby using the Ev
 ## Preview
 
 <img src="http://i.imgur.com/7tRTew7.png?1" style="width:40%;"/>
-<img src="http://i.imgur.com/mHzE1BM.png" style="width:40%;"/>
+<img src="http://i.imgur.com/mHzE1BM.png?1" style="width:40%;"/>
 
 
 ## Table of Contents

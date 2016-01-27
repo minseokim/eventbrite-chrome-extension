@@ -1,0 +1,23 @@
+{
+  "name": "eventbrite-chrome-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension to get popular events around you using eventbrite's API",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minseokim/eventbrite-chrome-extension.git"
+  },
+  "author": "Alex Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minseokim/eventbrite-chrome-extension/issues"
+  },
+  "homepage": "https://github.com/minseokim/eventbrite-chrome-extension#readme"
+}

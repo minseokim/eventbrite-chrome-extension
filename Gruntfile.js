@@ -44,6 +44,22 @@ module.exports = function(grunt) {
       }
     },
 
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'app/css/',
+          src: ['*.css', '!*.min.css'],
+          dest: 'app/dist/css/',
+          ext: '.min.css'
+        }]
+    }
+  },
+
     watch: {
       scripts: {
         files: [
@@ -53,7 +69,7 @@ module.exports = function(grunt) {
         tasks: [
           'jshint',
           'concat',
-          'uglify'
+          'uglify',
         ]
       }
     },
@@ -64,6 +80,7 @@ grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   ////////////////////////////////////////////////////
   // Main grunt tasks
@@ -77,7 +94,8 @@ grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.registerTask('build', [
     'jshint',
     'concat',
-    'uglify'
+    'uglify',
+    'cssmin'
   ]);
 
 };

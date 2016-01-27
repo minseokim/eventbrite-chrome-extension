@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp', []);
 
-myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
+myApp.controller('mainController', ['$scope', '$http', 'utils', function($scope, $http, utils){
 
   $scope.distance = {
     selectedOption : {id: '5 miles', value: '5mi'},
@@ -13,6 +13,7 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
 
   $scope.backupImage = 'http://i.imgur.com/QCaDyJ9.png';
+
   $scope.checkboxData = {
     weekendOnly : false,
     popularOnly : false
@@ -32,63 +33,13 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
     };
   });
 
-  //Get current date of user
-  var handleDates = (function(){
-    //start_date.range_start  Only return events with start dates after the given UTC date.
-    //start_date.range_end  Only return events with start dates before the given UTC date.
-
-    var isoString = moment().toISOString();
-
-    var dateRange = {
-      start : null,
-      end : null
-    };
-
-    //Find the nearest Friday from today
-      //set that as the start limit filter
-        //use a loop that goes from today till 7 days from now
-
-     var days = 1;
-     var today = moment().utc();
-
-     while (days <= 7) {
-      if (today.format('dddd') === 'Friday') {
-          dateRange.start = today;
-          break;
-       }
-      today.add(1, 'days').format('dddd');
-      days++;
-     }
-     dateRange.end = dateRange.start.clone().add(2, 'days');
-
-     dateRange.start = dateRange.start.toISOString().slice(0, 19) + 'Z';
-     dateRange.end = dateRange.end.toISOString().slice(0, 19) + 'Z';
-
-     $scope.dateRange = dateRange;
-    // "2016-01-31T04:47:00.671Z"
-    // "2010-01-31T13:00:00Z"
-  })();
-
-
   //Ajax request to fetch events from Eventbrite API
-  var getEvents = function(location, distance, weekendOnly, popularOnly){
+  var getEvents = function(){
 
-    var requestData = {
-      token : '3URCTQMSNEBN7MEB3Z33',
-      'location.latitude' : location.lat,
-      'location.longitude' : location.lon,
-      'location.within' : distance,
-      'sort_by' :'date'
-    };
-
-    if (weekendOnly) {
-      requestData['start_date.range_start'] = $scope.dateRange.start;
-      requestData['start_date.range_end'] = $scope.dateRange.end;
-    }
-
-    if (popularOnly) {
-      requestData.popular = true;
-    }
+    var location = $scope.location,
+        distance = $scope.distance.selectedOption.value,
+        flags    = $scope.checkboxData,
+        params   = utils.craftRequestParams(location, distance,flags);
 
     $http({
       method: 'GET',
@@ -96,42 +47,19 @@ myApp.controller('mainController', ['$scope', '$http', function($scope, $http){
       headers: {
         'Content-Type': 'application/json'
       },
-      params : requestData
+      params : params
     }).then(function onSuccess(response){
-      // console.log(response);
-      /* Data we need :
-          - Title
-          - URL
-          - Start Date
-          - logo
-          - category(possibly)
-      */
-      //events.categoryid,  events.logo.url,  events.name.text,
-      //events.start.local, events.end.local, events.url
       console.log(response);
-      var eventData = response.data.events.map(function(event) {
-        return {
-          categoryid: event.category_id,
-          logo: event.logo,
-          title : event.name.text,
-          startDate : moment(event.start.local).format("MMM Do YY"),
-          endDate : moment(event.end.local).format("MMM Do YY"),
-          url : event.url
-        };
-      });
-
-      $scope.eventData = eventData;
+      $scope.eventData = utils.processEventData(response.data.events);
 
     }, function onError(response) {
       console.log(response);
     });
   };
 
-  //Angular Progress Bar Here
   $scope.fetchData = function(isValid) {
-
     if (isValid) {
-      getEvents($scope.location, $scope.distance.selectedOption.value, $scope.checkboxData.weekendOnly, $scope.checkboxData.popularOnly);
+      getEvents();
     }
   };
 
